@@ -8,13 +8,17 @@ import {
 } from './../components/styles';
 
 const Signup = () => {
-    const [nameText, setNameText] = useState('');
-    const [emailText, setEmailText] = useState('');
+    const [firstNameText, setFirstNameText] = useState('');
+    const [lastNameText, setLastNameText] = useState('');
+    const [userNameText, setUserNameText] = useState('');
     const [passwordText, setPasswordText] = useState('');
-    const [confirmPasswordText, setConfirmPasswordText] = useState('');
-    const [responseData, setResponseData] = useState(" ");
+    const [phoneText, setPhoneText] = useState('');
 
-    function handleNameChange(text) {
+    function handleFirstNameChange(text) {
+        setNameText(text);
+    }
+
+    function handleLastNameChange(text) {
         setNameText(text);
     }
 
@@ -26,18 +30,29 @@ const Signup = () => {
         setPasswordText(text);
     }
 
-    function handleConfirmPasswordChange(text) {
-        setConfirmPasswordText(text);
+    function handlePhoneChange(text){
+        setPhoneText(text);
     }
 
-    const handleGetRequest = async () => {
+    const handleCreateAccount = async () => {
         try {
-          const response = await fetch('https://jsonplaceholder.typicode.com/todos/1');
+          const response = await fetch('https://cartful.azurewebsites.net/account/CreateAccount', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              firstName: firstNameText,
+              lastName: lastNameText,
+              userName: userNameText,
+              
+            })
+          });
           const data = await response.json();
           setResponseData(data);
           Alert.alert(`Response data: ${JSON.stringify(data)}`);
         } catch (error) {
-          console.error(error);
+            Alert.alert(`Error: ${JSON.stringify(error)}`);
         }
       };
 
@@ -49,37 +64,43 @@ const Signup = () => {
                     <Text style={styles.pageSubTitle}>Login</Text>
                     <TextInput
                         style={styles.formComponent}
-                        onChangeText={handleNameChange}
-                        value={nameText}
-                        placeholder= 'Full Name'
+                        onChangeText={handleFirstNameChange}
+                        value={firstNameText}
+                        placeholder= 'First Name'
+                    />
+
+                    <TextInput
+                        style={styles.formComponent}
+                        onChangeText={handleLastNameChange}
+                        value={lastNameText}
+                        placeholder= 'Last Name'
                     />
 
                     <TextInput
                         style={styles.formComponent}
                         onChangeText={handleEmailChange}
                         value={emailText}
-                        placeholder= 'Email'
-                    />
+                        placeholder= 'Username'
+                    />  
 
                     <TextInput
                         style={styles.formComponent}
                         onChangeText={handlePasswordChange}
                         value={passwordText}
                         placeholder= 'Password'
-                        secureTextEntry={true}
-                    />   
+                        secureTextEntry={false}
+                    />                    
 
                     <TextInput
                         style={styles.formComponent}
-                        onChangeText={handleConfirmPasswordChange}
-                        value={confirmPasswordText}
-                        placeholder= 'Confirm Password'
-                        secureTextEntry={true}
-                    />                 
+                        onChangeText={handlePhoneChange}
+                        value={phoneText}
+                        placeholder= 'Phone Number'
+                    />      
                 </View>
 
-                <Text style={styles.pageSubTitle}>By creating an account you agree to our Terms of Service and Privacy Policy</Text>
-                <Pressable style={styles.button} onPress={handleGetRequest}>
+                <Text style={styles.TermsOfService}>By creating an account you agree to our Terms of Service and Privacy Policy</Text>
+                <Pressable style={styles.button} onPress={handleCreateAccount}>
                     <Text style={styles.text}>CONTINUE</Text>
                 </Pressable>
             </SafeAreaView>

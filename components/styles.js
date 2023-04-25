@@ -52,6 +52,14 @@ export const styles = StyleSheet.create({
         padding: 10,
         paddingTop: 140
     },
+    
+    TermsOfService: {
+        fontSize: '16px',
+        textAlign: 'center',
+        color: `${secondary}`,
+        padding: 10,
+        paddingTop: 140
+    },
 
     formComponent: {
         marginTop: 20,
