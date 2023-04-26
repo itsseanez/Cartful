@@ -33,6 +33,7 @@ export const styles = StyleSheet.create({
   
     innerContainer: {
         flex: 1,
+        marginTop: 20,
         width: '100%',
         alignItems: 'center',
     },
@@ -50,7 +51,7 @@ export const styles = StyleSheet.create({
         textAlign: 'center',
         color: `${secondary}`,
         padding: 10,
-        paddingTop: 140
+        paddingTop: 50
     },
     
     TermsOfService: {

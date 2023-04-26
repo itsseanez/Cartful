@@ -15,15 +15,15 @@ const Signup = () => {
     const [phoneText, setPhoneText] = useState('');
 
     function handleFirstNameChange(text) {
-        setNameText(text);
+        setFirstNameText(text);
     }
 
     function handleLastNameChange(text) {
-        setNameText(text);
+        setLastNameText(text);
     }
 
-    function handleEmailChange(text) {
-        setEmailText(text);
+    function handleUserNameChange(text) {
+        setUserNameText(text);
     }
 
     function handlePasswordChange(text) {
@@ -36,24 +36,26 @@ const Signup = () => {
 
     const handleCreateAccount = async () => {
         try {
-          const response = await fetch('https://cartful.azurewebsites.net/account/CreateAccount', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              firstName: firstNameText,
-              lastName: lastNameText,
-              userName: userNameText,
-              
-            })
-          });
-          const data = await response.json();
-          setResponseData(data);
-          Alert.alert(`Response data: ${JSON.stringify(data)}`);
-        } catch (error) {
-            Alert.alert(`Error: ${JSON.stringify(error)}`);
-        }
+            const response = await fetch('https://cartful.azurewebsites.net/account/CreateAccount', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                firstName: firstNameText,
+                lastName: lastNameText,
+                userName: userNameText,
+                password: passwordText,
+                // this field isn't working so I am hard-coding the value
+                phoneNumber: '11111111'
+              })
+            });
+            const data = await response.json();
+            const code = response.status;
+            alert(`Response data: ${JSON.stringify(code)}`); // or display the data in some other way
+          } catch (error) {
+            console.error(error);
+          }
       };
 
     return (
@@ -78,8 +80,8 @@ const Signup = () => {
 
                     <TextInput
                         style={styles.formComponent}
-                        onChangeText={handleEmailChange}
-                        value={emailText}
+                        onChangeText={handleUserNameChange}
+                        value={userNameText}
                         placeholder= 'Username'
                     />  
 
