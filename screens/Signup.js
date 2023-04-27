@@ -2,32 +2,65 @@ import React from 'react';
 import { useState } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, TextInput, Button, Alert, Pressable, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import { NavigationContainer } from '@react-navigation/native';
 
 import {
     styles
 } from './../components/styles';
 
-const Signup = () => {
-    const [nameText, setNameText] = useState('');
-    const [emailText, setEmailText] = useState('');
+const Signup = ({navigation}) => {
+    const [firstNameText, setFirstNameText] = useState('');
+    const [lastNameText, setLastNameText] = useState('');
+    const [userNameText, setUserNameText] = useState('');
     const [passwordText, setPasswordText] = useState('');
-    const [confirmPasswordText, setConfirmPasswordText] = useState('');
+    const [phoneText, setPhoneText] = useState('');
 
-    function handleNameChange(text) {
-        setNameText(text);
+    function handleFirstNameChange(text) {
+        setFirstNameText(text);
     }
 
-    function handleEmailChange(text) {
-        setEmailText(text);
+    function handleLastNameChange(text) {
+        setLastNameText(text);
+    }
+
+    function handleUserNameChange(text) {
+        setUserNameText(text);
     }
 
     function handlePasswordChange(text) {
         setPasswordText(text);
     }
 
-    function handleConfirmPasswordChange(text) {
-        setConfirmPasswordText(text);
+    function handlePhoneChange(text){
+        setPhoneText(text);
     }
+
+    const handleCreateAccount = async () => {
+        try {
+            const response = await fetch('https://cartful.azurewebsites.net/account/CreateAccount', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                firstName: firstNameText,
+                lastName: lastNameText,
+                userName: userNameText,
+                phoneNumber: phoneText,
+                password: passwordText
+              })
+            });
+            const data = await response.json();
+            const code = response.status;
+            if(code== 201) {
+                navigation.navigate('Login');
+                //alert(`Response data: ${JSON.stringify(data)}`);
+            }
+            //alert(`Response data: ${JSON.stringify(code)}`);  or display the data in some other way
+          } catch (error) {
+            console.error(error);
+          }
+      };
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -38,29 +71,29 @@ const Signup = () => {
                     
                     <TextInput
                         style={styles.formComponent}
-                        onChangeText={handleNameChange}
-                        value={nameText}
+                        onChangeText={handleFirstNameChange}
+                        value={firstNameText}
                         placeholder= 'First Name'
                     />
                     
                     <TextInput
                         style={styles.formComponent}
-                        onChangeText={handleNameChange}
-                        value={nameText}
+                        onChangeText={handleLastNameChange}
+                        value={lastNameText}
                         placeholder= 'Last Name'
                     />
 
                     <TextInput
                         style={styles.formComponent}
-                        onChangeText={handleEmailChange}
-                        value={emailText}
+                        onChangeText={handleUserNameChange}
+                        value={userNameText}
                         placeholder= 'Username'
                     />
 
                     <TextInput
                         style={styles.formComponent}
-                        onChangeText={handleEmailChange}
-                        value={emailText}
+                        onChangeText={handlePhoneChange}
+                        value={phoneText}
                         placeholder= 'Phone Number'
                     />
 
@@ -70,19 +103,11 @@ const Signup = () => {
                         value={passwordText}
                         placeholder= 'Password'
                         secureTextEntry={true}
-                    />   
-
-                    <TextInput
-                        style={styles.formComponent}
-                        onChangeText={handleConfirmPasswordChange}
-                        value={confirmPasswordText}
-                        placeholder= 'Confirm Password'
-                        secureTextEntry={true}
                     />                 
                 </View>
 
                 <Text style={styles.regularText}>By creating an account you agree to our Terms of Service and Privacy Policy</Text>
-                <Pressable style={styles.button} onPress={() => Alert.alert(`Hey ${nameText}`)}>
+                <Pressable style={styles.button} onPress={() => handleCreateAccount()}>
                     <Text style={styles.text}>CONTINUE</Text>
                 </Pressable>
             </SafeAreaView>

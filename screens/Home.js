@@ -1,35 +1,38 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, TextInput, Button, Alert, Pressable, Keyboard, TouchableWithoutFeedback } from 'react-native';
-
+import { useRoute } from '@react-navigation/native';
 import {
     styles
 } from './../components/styles';
 import Login from '../screens/Login';
 
-const Home = () => {
+const Home = ({navigation}) => {
 
-    const [objectList, setObjectList] = useState([]);
+    const route = useRoute();
+    const userId= route.params.userId
+    //const allLists= await fetch(`https://cartful.azurewebsites.net/list/GetLists?userId=${userId}`)
 
-    /*useEffect(() => {
-        fetch(`https://cartful.azurewebsites.net/list/GetLists?userId=${}`)
-        .then(response => response.json())
-        .then(data => setObjectList(data))
-        .catch(error => console.error(error));
-    }, []);*/
+    const [userLists, setUserLists] = useState(null);
+    useEffect(() => {
+        fetch(`https://cartful.azurewebsites.net/list/GetLists?userId=${userId}`)
+          .then(response => response.json())
+          .then(data => setUserLists(data))
+          .catch(error => console.error(error));
+      }, []);
+
+    if (!userLists) {
+        return <Text>Loading...</Text>;
+    }
 
     return (
-        <FlatList
-        data={objectList}
-        keyExtractor={item => item.id.toString()}
-        renderItem={({ item }) => (
-            <View>
-            <Text>{item.name}</Text>
-            <Text>{item.description}</Text>
-            {/* Display other object details as needed */}
-            </View>
-        )}
-        />
+        <View>
+            {userLists.map((list) => (
+                <Pressable style={styles.button} key={list.listID} onPress={() => navigation.navigate('List', list.listID)}>
+                    <Text style={styles.text}>{list.title}</Text>
+                </Pressable>
+            ))}
+        </View>
     );
 }
 

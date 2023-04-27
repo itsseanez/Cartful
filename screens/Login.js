@@ -27,7 +27,7 @@ const Login = ({navigation}) => {
             const user = await response.json();
             const userId=user.userId
             // Do something with the response data (e.g. save user token to async storage)
-            Alert.alert(`${JSON.stringify(userId)}`)
+            //Alert.alert(`${JSON.stringify(userId)}`)
             if(user.userId!==undefined) {
                 navigation.navigate('Home', {userId})
             }
