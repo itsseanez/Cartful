@@ -12,7 +12,7 @@ const List = ({navigation}) => {
 
     const [userItems, setUserItems] = useState([]);
     const [newItem, setNewItem] = useState(null);
-    const [count, setCount] = useState(0);
+    const [count, setCount] = useState(userItems.length);
 
     useEffect(() => {
         fetch(`https://cartful.azurewebsites.net/item/GetItems?listID=${listID}`)
@@ -73,9 +73,9 @@ const List = ({navigation}) => {
                             </Pressable>
                     </View>
                     <View>
-                        {userItems.map((item) => (
+                        {userItems.map((item,index) => (
                             <View style={styles.row}>
-                                <Text key={item.itemID} style={styles.pageSubTitle}>{item.itemName}</Text>
+                                <Text key={item.itemID} style={styles.item}>{index+1}.  {item.itemName}</Text>
                                 <Pressable style={styles.delete} onPress={() => handleDelete(item.itemID)}>
                                     <Text style={styles.text}>X</Text>
                                 </Pressable>

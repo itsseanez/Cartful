@@ -33,7 +33,7 @@ export const styles = StyleSheet.create({
     row: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         marginBottom: 30,
     },
 
@@ -68,8 +68,17 @@ export const styles = StyleSheet.create({
     pageSubTitle: {
         fontSize: '26px',
         textAlign: 'center',
+        alignItems:'center',
         color: `${secondary}`,
         padding: 10,
+    },
+
+    item: {
+        fontSize: '26px',
+        textAlign: 'center',
+        color: `${secondary}`,
+        padding: 10,
+        marginBottom: 33
     },
 
     formComponent: {
