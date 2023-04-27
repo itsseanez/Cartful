@@ -20,6 +20,23 @@ export const styles = StyleSheet.create({
         marginBottom: 30
     },
 
+    delete: {
+        borderRadius: 8,
+        padding: 15,
+        backgroundColor: 'red',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 30,
+        marginLeft: 5
+    },
+
+    row: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginBottom: 30,
+    },
+
     text: {
         color: `${primary}`,
         fontSize: '24px'
@@ -28,7 +45,8 @@ export const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: `${primary}`,
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent: 'center'
     },
   
     innerContainer: {
@@ -40,6 +58,8 @@ export const styles = StyleSheet.create({
     pageTitle: {
         fontSize: '36px',
         textAlign: 'center',
+        justifyContent:'center',
+        alignItems:'center', 
         fontWeight: 'bold',
         color: `${brand}`,
         padding: 10,
