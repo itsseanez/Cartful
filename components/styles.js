@@ -50,7 +50,6 @@ export const styles = StyleSheet.create({
         textAlign: 'center',
         color: `${secondary}`,
         padding: 10,
-        paddingTop: 140
     },
 
     formComponent: {
@@ -61,5 +60,10 @@ export const styles = StyleSheet.create({
         borderWidth: 1,
         width: '80%',
         justifyContent: 'center',
+    },
+
+    regularText: {
+        color: `${secondary}`,
+        padding: 20
     }
   });

@@ -26,7 +26,7 @@ const Signup = () => {
     }
 
     function handleConfirmPasswordChange(text) {
-        setConfirmPassworText(text);
+        setConfirmPasswordText(text);
     }
 
     return (
@@ -34,19 +34,34 @@ const Signup = () => {
             <SafeAreaView style={styles.container}>
                 <View style={styles.innerContainer}>
                     <Text style={styles.pageTitle}>Cartful</Text>
-                    <Text style={styles.pageSubTitle}>Login</Text>
+                    <Text style={styles.pageSubTitle}>Sign Up</Text>
+                    
                     <TextInput
                         style={styles.formComponent}
                         onChangeText={handleNameChange}
                         value={nameText}
-                        placeholder= 'Full Name'
+                        placeholder= 'First Name'
+                    />
+                    
+                    <TextInput
+                        style={styles.formComponent}
+                        onChangeText={handleNameChange}
+                        value={nameText}
+                        placeholder= 'Last Name'
                     />
 
                     <TextInput
                         style={styles.formComponent}
                         onChangeText={handleEmailChange}
                         value={emailText}
-                        placeholder= 'Email'
+                        placeholder= 'Username'
+                    />
+
+                    <TextInput
+                        style={styles.formComponent}
+                        onChangeText={handleEmailChange}
+                        value={emailText}
+                        placeholder= 'Phone Number'
                     />
 
                     <TextInput
@@ -66,7 +81,7 @@ const Signup = () => {
                     />                 
                 </View>
 
-                <Text style={styles.pageSubTitle}>By creating an account you agree to our Terms of Service and Privacy Policy</Text>
+                <Text style={styles.regularText}>By creating an account you agree to our Terms of Service and Privacy Policy</Text>
                 <Pressable style={styles.button} onPress={() => Alert.alert(`Hey ${nameText}`)}>
                     <Text style={styles.text}>CONTINUE</Text>
                 </Pressable>
