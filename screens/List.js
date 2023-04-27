@@ -20,17 +20,17 @@ const List = ({navigation}) => {
           .then(data => setUserItems(data))
           .catch(error => console.error(error));
 
-      }, []);
+      }, [count]);
 
     if (!userItems) {
         return <Text>Loading...</Text>;
     }
 
     const handleDelete = async(itemID) => {
-        await fetch(`https://cartful.azurewebsites.net/list/deleteItems?itemID=${itemID}`, {
+        await fetch(`https://cartful.azurewebsites.net/item/DeleteItems?itemID=${itemID}`, {
             method: 'DELETE'
         });
-        setCount(count + 1);
+        setCount(count - 1);
     };
 
     const handleItemChange= async() =>{
@@ -40,18 +40,20 @@ const List = ({navigation}) => {
               headers: {
                 'Content-Type': 'application/json'
               },
-              body: JSON.stringify({
+              body: JSON.stringify([{
                 listID: listID,
                 itemName: newItem,
                 isChecked: true
-              })
+              }])
             });
             const data = await response.json();
             const code = response.status;
             setCount(count + 1);
+            setNewItem('')
             //alert(`Response data: ${JSON.stringify(code)}`);  or display the data in some other way
           } catch (error) {
             console.error(error);
+            Alert.alert('this is a dumb error')
           }
     };
 
